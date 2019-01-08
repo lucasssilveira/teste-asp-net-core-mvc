@@ -18,6 +18,8 @@ namespace Sales2019.Controllers
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
+            ViewData["subTitle"] = "Testnado o que aprendi";
+            ViewData["aluno"] = "Lucas Silveira";
 
             return View();
         }
