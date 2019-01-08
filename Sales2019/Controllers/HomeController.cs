@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Sales2019.Models;
+using Sales2019.Models.ViewModels;
 
 namespace Sales2019.Controllers
 {
