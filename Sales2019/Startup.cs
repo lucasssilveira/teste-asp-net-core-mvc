@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Sales2019.Models;
 using Sales2019.Data;
+using Sales2019.Services;
 
 namespace Sales2019
 {
@@ -40,7 +41,8 @@ namespace Sales2019
                    options.UseMySql(Configuration.GetConnectionString("Sales2019Context"), builder =>
                       builder.MigrationsAssembly("Sales2019")));
 
-            services.AddScoped<SeedingService>(); 
+            services.AddScoped<SeedingService>();
+            services.AddScoped<SellerService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
