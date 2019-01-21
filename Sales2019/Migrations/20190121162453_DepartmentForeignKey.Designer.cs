@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sales2019.Models;
 
 namespace Sales2019.Migrations
 {
     [DbContext(typeof(Sales2019Context))]
-    partial class Sales2019ContextModelSnapshot : ModelSnapshot
+    [Migration("20190121162453_DepartmentForeignKey")]
+    partial class DepartmentForeignKey
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,7 +60,9 @@ namespace Sales2019.Migrations
 
                     b.Property<DateTime>("BirthDate");
 
-                    b.Property<int>("DepartmentId");
+                    b.Property<int?>("DepartmentId");
+
+                    b.Property<int>("DepartmentsId");
 
                     b.Property<string>("Email");
 
@@ -82,8 +86,7 @@ namespace Sales2019.Migrations
                 {
                     b.HasOne("Sales2019.Models.Department", "Department")
                         .WithMany("Sellers")
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("DepartmentId");
                 });
 #pragma warning restore 612, 618
         }
