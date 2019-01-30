@@ -41,6 +41,13 @@ namespace Sales2019.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Seller seller)
         {
+            //Validação do preenchimento correto do seller,caso o javascript do cliente esteja desabilitado
+            if (!ModelState.IsValid)
+            {
+                var departments = _departmentService.FindAll();
+                var viewModel = new SellerFormViewModel { Seller = seller, Departments = departments };
+                return View(viewModel);
+            }
             _sellerService.Insert(seller);
 
             return RedirectToAction(nameof(Index));
@@ -107,6 +114,13 @@ namespace Sales2019.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, Seller seller)
         {
+            //Validação do preenchimento correto do seller,caso o javascript do cliente esteja desabilitado
+            if (!ModelState.IsValid)
+            {
+                var departments = _departmentService.FindAll();
+                var viewModel = new SellerFormViewModel { Seller = seller, Departments = departments };
+                return View(viewModel);
+            }
             if (id != seller.Id)
             {
                 return RedirectToAction(nameof(Error), new { message = " Id  mismatch" });
@@ -122,7 +136,7 @@ namespace Sales2019.Controllers
             }
 
         }
-
+        //capitura id e mensagem de erro e passa para a página de erro
         public IActionResult Error(string message)
         {
             var viewModel = new ErrorViewModel
