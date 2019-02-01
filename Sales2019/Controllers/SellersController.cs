@@ -71,9 +71,15 @@ namespace Sales2019.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
-
-            await _sellerService.RemoveAsync(id);
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                await _sellerService.RemoveAsync(id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (IntegrityException e)
+            {
+                return RedirectToAction(nameof(Error), new { message = e.Message });
+            }
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -83,7 +89,7 @@ namespace Sales2019.Controllers
                 return RedirectToAction(nameof(Error), new { message = "Id not provided" });
             }
 
-            var obj =  await _sellerService.FindByIdAsync(id.Value);
+            var obj = await _sellerService.FindByIdAsync(id.Value);
             if (obj == null)
             {
                 RedirectToAction(nameof(Error), new { message = "Id not found" });
@@ -97,7 +103,7 @@ namespace Sales2019.Controllers
             {
                 return RedirectToAction(nameof(Error), new { message = " Id not provided" });
             }
-            var obj =  await _sellerService.FindByIdAsync(id.Value);
+            var obj = await _sellerService.FindByIdAsync(id.Value);
 
             if (obj == null)
             {
@@ -117,7 +123,7 @@ namespace Sales2019.Controllers
             //Validação do preenchimento correto do seller,caso o javascript do cliente esteja desabilitado
             if (!ModelState.IsValid)
             {
-                var departments = await  _departmentService.FindAllAsync();
+                var departments = await _departmentService.FindAllAsync();
                 var viewModel = new SellerFormViewModel { Seller = seller, Departments = departments };
                 return View(viewModel);
             }
