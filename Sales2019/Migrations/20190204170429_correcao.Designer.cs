@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sales2019.Models;
 
 namespace Sales2019.Migrations
 {
     [DbContext(typeof(Sales2019Context))]
-    partial class Sales2019ContextModelSnapshot : ModelSnapshot
+    [Migration("20190204170429_correcao")]
+    partial class correcao
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
